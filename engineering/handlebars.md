@@ -15,27 +15,40 @@ Prefer double quotes to single quotes
 <button {{action 'doThing'}}>Do Thing</button>
 ```
 
-## Multiline expressions
+## Multi-line expressions
 
 Multi-line expressions should specify attributes starting on the second
-line, and should be indented one deeper than the start of the component
-or helper name.
+line, and should be indented to the start of the component or helper name. Block
+style multi-line expressions should use two spaces and wrap the curly braces.
+
 ```hbs
 {{! good }}
-{{x-thing
-    value=blah
-    options=options
-    label="thing"}}
-
-{{! bad }}
 {{x-thing
   value=blah
   options=options
   label="thing"}}
 
-{{! this will be annoying to re-indent if you rename your component }}
+{{! bad; this will be annoying to re-indent if the component is renamed }}
 {{x-thing value=blah
           options=options
           label="thing"}}
+  
+{{! good }}
+{{#x-thing
+  value=blah
+  options=options
+  label="thing"
+  as |some thing|
+}}
+  {{some (action thing)}}
+{{/x-thing}}
 
+{{! bad; this indentation is hard to follow }}
+{{#x-thing
+    value=blah
+    options=options
+    label="thing"
+    as |some thing|}}
+  {{some (action thing)}}
+{{/x-thing}}
 ```
