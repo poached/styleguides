@@ -34,6 +34,7 @@
 
 * [Functions](#functions)
 * [Function Arguments](#function-arguments)
+* [Callback Functions](#callbacks)
 
 ## Block Statements
 
@@ -989,3 +990,27 @@ function fooBar(obj, key, value) {
   // ...
 }
 ```
+
+
+## Callbacks
+
++ Callbacks should always use the error-first form (aka node-style callback)
+
+```javascript
+// good
+function fooBar(callback) {
+  // code
+  if (error) {
+    return callback(error);
+  } else {
+    return callback(null, success);
+  }
+}
+
+// bad
+function fooBar(callback) {
+  // code
+  return callback(success);
+}
+```
+
