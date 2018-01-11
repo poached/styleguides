@@ -199,6 +199,25 @@ handler();
 handler.call(this);
 ```
 
++ Keep _if_ statement predicates as simple as possible by limit the number of operators. Comprehending the effect of a complex expression takes longer than comprehending that of a well-named variable.
+
+```javascript
+// good
+if (a < b) {
+  ...
+}
+// good
+const showThing = amount > 0 && isThingEnabled || isMember;
+
+if (showThing) {
+  ...
+}
+// bad
+if (amount > 0 && isThingEnabled || isMember) {
+  ...
+}
+```
+
 ## Commas
 
 + Skip trailing commas.
