@@ -396,44 +396,41 @@ const b = 2;
 const a = 1, b = 2;
 ```
 
-+ Declare variables at the top of their block scope.
+Assign variables where you need them, but place them in a reasonable place.
+
+> Why? `let` and `const` are block scoped and not function scoped.
 
 ```javascript
-function mutate(thing) {
-  return new Promise((resolve) => {
-    resolve(thing);
-  });
+// bad - unnecessary function call
+function checkName(hasName) {
+  const name = getName();
+
+  if (hasName === 'test') {
+    return false;
+  }
+
+  if (name === 'test') {
+    this.setName('');
+    return false;
+  }
+
+  return name;
 }
 
 // good
-function bar() {
-  const itemToPush = 'foo';
-  const coolList = [1, 2, 3, 4, 5, 6];
-  let updatedList = coolList.filter((item) => {
-    return (item % 2) === 0;
-  });
+function checkName(hasName) {
+  if (hasName === 'test') {
+    return false;
+  }
 
-  mutate(updatedList).then((list) => {
-    updatedList = list.push(itemToPush);
-  });
+  const name = getName();
 
-  return updatedList;
-}
+  if (name === 'test') {
+    this.setName('');
+    return false;
+  }
 
-// bad
-function bar() {
-  let updatedList = coolList.filter((item) => {
-    return (item % 2) === 0;
-  });
-
-  const coolList = [1, 2, 3, 4, 5, 6];
-
-  mutate(updatedList).then((list) => {
-    updatedList = list.push(result);
-  });
-
-  const result = 'foo';
-  return updatedList;
+  return name;
 }
 ```
 
